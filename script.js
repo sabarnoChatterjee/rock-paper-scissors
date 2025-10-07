@@ -7,8 +7,6 @@ let playerScore = 0,
 function getComputerChoice() {
   let computerChoice = Math.floor(Math.random() * 3);
   let choice = computerChoice;
-
-  // console.log(`Computer: ${computerChoice.toUpperCase()}`);
   return choice;
 }
 
@@ -25,11 +23,11 @@ function getPlayerChoice() {
       let result = playRound(computerChoice, playerChoice);
 
       //UI Result
+
       const displayResultBox = document.querySelector(".result");
       const displayPlayerScore = document.createElement("h2");
       const displayComputerScore = document.createElement("h2");
       const displayResult = document.createElement("h2");
-      
 
       computerChoice === 0
         ? (computerChoice = "rock")
@@ -37,7 +35,7 @@ function getPlayerChoice() {
         ? (computerChoice = "paper")
         : (computerChoice = "scissors");
 
-
+      // Updating the result box
       displayPlayerScore.textContent = `Player: ${playerChoice.toUpperCase()}`;
       displayComputerScore.textContent = `Computer: ${computerChoice.toUpperCase()}`;
       displayResult.textContent = `${result}`;
@@ -45,8 +43,6 @@ function getPlayerChoice() {
       displayResultBox.appendChild(displayPlayerScore);
       displayResultBox.appendChild(displayComputerScore);
       displayResultBox.appendChild(displayResult);
-
-      // console.log(result);
     });
   });
 }
@@ -54,6 +50,9 @@ function getPlayerChoice() {
 getPlayerChoice();
 
 function playRound(computerChoice, playerChoice) {
+  const player = document.querySelector(".player");
+  const computer = document.querySelector(".computer");
+
   if (playerChoice == "rock") playerChoice = 0;
   else if (playerChoice == "paper") playerChoice = 1;
   else playerChoice = 2;
@@ -61,19 +60,19 @@ function playRound(computerChoice, playerChoice) {
   if (computerChoice == playerChoice) return "Tie";
   if (computerChoice === 0 && playerChoice === 1) {
     playerScore++;
+    player.textContent = `Player : ${playerScore}`;
     return "Human wins!";
   } else if (computerChoice === 1 && playerChoice === 2) {
     playerScore++;
+    player.textContent = `Player : ${playerScore}`;
     return "Human wins!";
   } else if (computerChoice === 2 && playerChoice === 0) {
     playerScore++;
+    player.textContent = `Player : ${playerScore}`;
     return "Human wins!";
   } else {
     computerScore++;
-    return computerChoice === 0
-      ? "Computer wins!"
-      : computerChoice === 1
-      ? "Computer wins!"
-      : "Computer wins!";
+    computer.textContent = `Computer : ${computerScore}`;
+    return "Computer wins!";
   }
 }
