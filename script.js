@@ -1,18 +1,14 @@
 // GLOBAL VARIABLES
 let playerScore = 0,
   computerScore = 0,
-  bestOf = 1,
+  bestOf = 2,
   playerChoice = "";
 
 function getComputerChoice() {
   let computerChoice = Math.floor(Math.random() * 3);
   let choice = computerChoice;
-  computerChoice === 0
-    ? (computerChoice = "rock")
-    : computerChoice === 1
-    ? (computerChoice = "paper")
-    : (computerChoice = "scissors");
-  console.log(`Computer: ${computerChoice.toUpperCase()}`);
+
+  // console.log(`Computer: ${computerChoice.toUpperCase()}`);
   return choice;
 }
 
@@ -27,23 +23,40 @@ function getPlayerChoice() {
       let computerChoice = getComputerChoice();
 
       let result = playRound(computerChoice, playerChoice);
-      console.log(result);
+
+      //UI Result
+      const displayResultBox = document.querySelector(".result");
+      const displayPlayerScore = document.createElement("h2");
+      const displayComputerScore = document.createElement("h2");
+      const displayResult = document.createElement("h2");
+      
+
+      computerChoice === 0
+        ? (computerChoice = "rock")
+        : computerChoice === 1
+        ? (computerChoice = "paper")
+        : (computerChoice = "scissors");
+
+
+      displayPlayerScore.textContent = `Player: ${playerChoice.toUpperCase()}`;
+      displayComputerScore.textContent = `Computer: ${computerChoice.toUpperCase()}`;
+      displayResult.textContent = `${result}`;
+
+      displayResultBox.appendChild(displayPlayerScore);
+      displayResultBox.appendChild(displayComputerScore);
+      displayResultBox.appendChild(displayResult);
+
+      // console.log(result);
     });
   });
 }
 
 getPlayerChoice();
 
-// let computerChoice = getComputerChoice();
-
-// console.log(computerChoice);
-
 function playRound(computerChoice, playerChoice) {
   if (playerChoice == "rock") playerChoice = 0;
   else if (playerChoice == "paper") playerChoice = 1;
   else playerChoice = 2;
-  // console.log(typeof(playerChoice));
-  // console.log(playerChoice);
 
   if (computerChoice == playerChoice) return "Tie";
   if (computerChoice === 0 && playerChoice === 1) {
@@ -64,31 +77,3 @@ function playRound(computerChoice, playerChoice) {
       : "Computer wins!";
   }
 }
-
-// function printScore() {
-//   if (humanScore > computerScore) console.log("🎉 Human wins the game!");
-//   else if (computerScore > humanScore)
-//     console.log("💻 Computer wins the game!");
-//   else console.log("🤝 It's a tie overall!");
-// }
-
-// let humanChoice = Number(getHumanChoice);
-// console.log(humanChoice);
-
-// function playGame() {
-//   while (bestOf) {
-//     let humanChoice = Number(getHumanChoice());
-//     let computerChoice = getComputerChoice();
-
-//     let result = playRound(computerChoice, humanChoice);
-
-//     console.log(result);
-//     console.log(`Human: ${humanScore}, Computer: ${computerScore}`);
-
-//     bestOf--;
-//   }
-//   printScore();
-// }
-
-// playGame();
-// getHumanChoice()
