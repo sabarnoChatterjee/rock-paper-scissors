@@ -6,8 +6,14 @@ let playerScore = 0,
 
 function getComputerChoice() {
   let computerChoice = Math.floor(Math.random() * 3);
-  console.log(`Computer: ${computerChoice}`);
-  return computerChoice;
+  let choice = computerChoice;
+  computerChoice === 0
+    ? (computerChoice = "rock")
+    : computerChoice === 1
+    ? (computerChoice = "paper")
+    : (computerChoice = "scissors");
+  console.log(`Computer: ${computerChoice.toUpperCase()}`);
+  return choice;
 }
 
 function getPlayerChoice() {
@@ -17,7 +23,7 @@ function getPlayerChoice() {
     button.addEventListener("click", (e) => {
       e.preventDefault();
       playerChoice = e.target.id;
-      console.log(`Player: ${playerChoice}`);
+      console.log(`Player: ${playerChoice.toUpperCase()}`);
       let computerChoice = getComputerChoice();
 
       let result = playRound(computerChoice, playerChoice);
@@ -42,20 +48,20 @@ function playRound(computerChoice, playerChoice) {
   if (computerChoice == playerChoice) return "Tie";
   if (computerChoice === 0 && playerChoice === 1) {
     playerScore++;
-    return "Human(paper) wins!";
+    return "Human wins!";
   } else if (computerChoice === 1 && playerChoice === 2) {
     playerScore++;
-    return "Human(scissor) wins!";
+    return "Human wins!";
   } else if (computerChoice === 2 && playerChoice === 0) {
     playerScore++;
-    return "Human(rock) wins!";
+    return "Human wins!";
   } else {
     computerScore++;
     return computerChoice === 0
-      ? "Computer(rock wins)"
+      ? "Computer wins!"
       : computerChoice === 1
-      ? "Computer(paper) wins"
-      : "Computer(scissor) wins";
+      ? "Computer wins!"
+      : "Computer wins!";
   }
 }
 
