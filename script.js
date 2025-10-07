@@ -1,7 +1,7 @@
 // GLOBAL VARIABLES
 let playerScore = 0,
   computerScore = 0,
-  bestOf = 2,
+  bestOf = 5,
   playerChoice = "";
 
 function getComputerChoice() {
@@ -9,45 +9,6 @@ function getComputerChoice() {
   let choice = computerChoice;
   return choice;
 }
-
-function getPlayerChoice() {
-  const buttons = document.querySelectorAll("button");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      e.preventDefault();
-      playerChoice = e.target.id;
-      console.log(`Player: ${playerChoice.toUpperCase()}`);
-      let computerChoice = getComputerChoice();
-
-      let result = playRound(computerChoice, playerChoice);
-
-      //UI Result
-
-      const displayResultBox = document.querySelector(".result");
-      const displayPlayerScore = document.createElement("h2");
-      const displayComputerScore = document.createElement("h2");
-      const displayResult = document.createElement("h2");
-
-      computerChoice === 0
-        ? (computerChoice = "rock")
-        : computerChoice === 1
-        ? (computerChoice = "paper")
-        : (computerChoice = "scissors");
-
-      // Updating the result box
-      displayPlayerScore.textContent = `Player: ${playerChoice.toUpperCase()}`;
-      displayComputerScore.textContent = `Computer: ${computerChoice.toUpperCase()}`;
-      displayResult.textContent = `${result}`;
-
-      displayResultBox.appendChild(displayPlayerScore);
-      displayResultBox.appendChild(displayComputerScore);
-      displayResultBox.appendChild(displayResult);
-    });
-  });
-}
-
-getPlayerChoice();
 
 function playRound(computerChoice, playerChoice) {
   const player = document.querySelector(".player");
@@ -76,3 +37,55 @@ function playRound(computerChoice, playerChoice) {
     return "Computer wins!";
   }
 }
+
+function getPlayerChoice() {
+  const buttons = document.querySelectorAll("button");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      playerChoice = e.target.id;
+      let computerChoice = getComputerChoice();
+
+      let result = playRound(computerChoice, playerChoice);
+
+      //UI Result
+      const displayResultBox = document.querySelector(".result");
+      const displayPlayerScore = document.createElement("h2");
+      const displayComputerScore = document.createElement("h2");
+      const displayResult = document.createElement("h2");
+      displayResultBox.textContent = "";
+
+      if (playerScore < bestOf && computerScore < bestOf) {
+        computerChoice === 0
+          ? (computerChoice = "rock")
+          : computerChoice === 1
+          ? (computerChoice = "paper")
+          : (computerChoice = "scissors");
+
+        // Updating the result box
+
+        displayPlayerScore.textContent = `Player: ${playerChoice.toUpperCase()}`;
+        displayComputerScore.textContent = `Computer: ${computerChoice.toUpperCase()}`;
+        displayResult.textContent = `${result}`;
+
+        displayResultBox.appendChild(displayPlayerScore);
+        displayResultBox.appendChild(displayComputerScore);
+        displayResultBox.appendChild(displayResult);
+      } else {
+        if (computerScore > playerScore) {
+          displayResultBox.textContent = "Computer Wins!!!!";
+          displayResultBox.style.fontSize = "30px";
+        } else {
+          displayResultBox.textContent = "Player Wins!!!!";
+          displayResultBox.style.fontSize = "30px";
+        }
+        return;
+      }
+    });
+  });
+}
+
+
+getPlayerChoice();
+
